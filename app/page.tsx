@@ -37,6 +37,7 @@ const focusAreas = ["Web development", "Game development", "Animation", "3D mode
 
 export default function Home() {
   const [dark, setDark] = useState(true);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const workSliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,12 +56,41 @@ export default function Home() {
     });
   }
 
-  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") || "");
+    const email = String(data.get("email") || "");
     const subject = String(data.get("subject") || "Portfolio project inquiry");
     const message = String(data.get("message") || "");
-    window.location.href = `mailto:roel.john20002@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+    setSubmitStatus("sending");
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/roel.john20002@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+          _subject: `RJSD portfolio inquiry: ${subject}`,
+          _replyto: email,
+          _template: "table",
+          _honey: String(data.get("_honey") || ""),
+          source_page: window.location.href,
+        }),
+      });
+      const result = await response.json() as { success?: boolean | string };
+      if (!response.ok || result.success === false || result.success === "false") throw new Error("Submission failed");
+
+      form.reset();
+      setSubmitStatus("success");
+    } catch {
+      setSubmitStatus("error");
+    }
   }
 
   function slideWork(direction: -1 | 1) {
@@ -115,7 +145,7 @@ export default function Home() {
 
         <section className="about-section" id="about" aria-labelledby="about-title"><div className="about-intro"><p className="eyebrow">The workspace</p><h2 id="about-title">Built to <em>explore.</em></h2><p className="about-lead">A portfolio for making, learning, and turning rough ideas into work that feels clear, useful, and alive.</p></div><div className="focus-panel"><p className="eyebrow">Current focus</p><ul>{focusAreas.map((area, index) => <li key={area}><span>0{index + 1}</span>{area}<b>-&gt;</b></li>)}</ul></div></section>
 
-        <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="contact-card"><div className="contact-copy"><p className="eyebrow">Get in touch</p><h2 id="contact-title">Let&apos;s work<br /><em>together.</em></h2><p className="contact-intro">I&apos;m open to web, game, animation, 3D, and editing projects — short or long-term. Have something in mind? Let&apos;s talk.</p><div className="contact-details"><a href="mailto:roel.john20002@gmail.com"><span className="contact-icon">@</span>roel.john20002@gmail.com</a><a href="https://www.linkedin.com/in/roel-john-delute-54b904382" target="_blank" rel="noreferrer"><span className="contact-icon">in</span>linkedin.com/in/roel-john-delute-54b904382</a><a href="https://github.com/Atlaski7/Roel-John-Delute-portfolio" target="_blank" rel="noreferrer"><span className="contact-icon">&lt;&gt;</span>github.com/Atlaski7/Roel-John-Delute-portfolio</a></div></div><form className="contact-form" onSubmit={handleContactSubmit}><div className="form-row"><label>Name *<input name="name" required placeholder="Your name" /></label><label>Email *<input name="email" type="email" required placeholder="you@example.com" /></label></div><label>Subject<input name="subject" placeholder="Project inquiry" /></label><label>Message *<textarea name="message" required placeholder="Tell me about your project..." rows={5} /></label><button className="form-submit" type="submit">Send message <span>-&gt;</span></button></form></div></section>
+        <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="contact-card"><div className="contact-copy"><p className="eyebrow">Get in touch</p><h2 id="contact-title">Let&apos;s work<br /><em>together.</em></h2><p className="contact-intro">I&apos;m open to web, game, animation, 3D, and editing projects — short or long-term. Have something in mind? Let&apos;s talk.</p><div className="contact-details"><a href="mailto:roel.john20002@gmail.com"><span className="contact-icon">@</span>roel.john20002@gmail.com</a><a href="https://www.linkedin.com/in/roel-john-delute-54b904382" target="_blank" rel="noreferrer"><span className="contact-icon">in</span>linkedin.com/in/roel-john-delute-54b904382</a><a href="https://github.com/Atlaski7/Roel-John-Delute-portfolio" target="_blank" rel="noreferrer"><span className="contact-icon">&lt;&gt;</span>github.com/Atlaski7/Roel-John-Delute-portfolio</a></div></div><form className="contact-form" onSubmit={handleContactSubmit}><label className="form-honeypot" aria-hidden="true">Leave this empty<input name="_honey" tabIndex={-1} autoComplete="off" /></label><div className="form-row"><label>Name *<input name="name" required placeholder="Your name" /></label><label>Email *<input name="email" type="email" required placeholder="you@example.com" /></label></div><label>Subject<input name="subject" placeholder="Project inquiry" /></label><label>Message *<textarea name="message" required placeholder="Tell me about your project..." rows={5} /></label><button className="form-submit" type="submit" disabled={submitStatus === "sending"}>{submitStatus === "sending" ? "Sending..." : "Send message"} <span>-&gt;</span></button><p className={`form-status form-status-${submitStatus}`} role="status" aria-live="polite">{submitStatus === "success" ? "Thanks! Your message has been submitted." : submitStatus === "error" ? "The message could not be sent. Please email me directly instead." : ""}</p></form></div></section>
       </main>
 
       <footer className="site-footer"><span>RJSD / Creative workspace</span><span>Web · Games · Motion · 3D · Edit</span><a href="#top">Back to top ^</a></footer>
