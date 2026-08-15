@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowUpRight, Box, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Box, Clapperboard, Code2, Download, Gamepad2, Play } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-export type WorkCategory = "frontend" | "game-development" | "animation" | "3d-modeling" | "video-editing";
+export type WorkCategory = "frontend" | "game-development" | "animation" | "3d-modeling" | "media";
 
 type WorkDetail = {
   number: string;
@@ -43,12 +43,12 @@ const workDetails: Record<WorkCategory, WorkDetail> = {
     icon: Box,
     capabilities: ["Hard-surface modeling", "Environment props", "Materials and lighting", "Rendering"],
   },
-  "video-editing": {
+  media: {
     number: "05",
-    title: "Video Editing",
-    description: "Purposeful edits that bring footage, sound, pacing, and transitions together into a focused final story.",
+    title: "Media",
+    description: "Campaign videos, app showcases, and purposeful edits that bring a clear message to the screen.",
     icon: Play,
-    capabilities: ["Short-form edits", "Pacing and transitions", "Sound synchronization", "Color and final export"],
+    capabilities: ["Campaign videos", "App showcases", "Pacing and transitions", "Final delivery"],
   },
 };
 
@@ -62,6 +62,7 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
   const project = workDetails[category];
   const Icon = project.icon;
   const isGameDevelopment = category === "game-development";
+  const isMedia = category === "media";
 
   useEffect(() => {
     const saved = window.localStorage.getItem("rjsd-theme");
@@ -131,6 +132,51 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
                     <li>Cybersecurity</li>
                     <li>Educational game</li>
                   </ul>
+                </div>
+              </article>
+            </>
+          ) : isMedia ? (
+            <>
+              <div className="work-project-archive">
+                <p className="eyebrow">Featured project / 01</p>
+                <h2>Kazam.</h2>
+                <p>Promotional media for Kazam, a platform connecting kasambahays and homeowners.</p>
+                <a href="#kazam">Watch the project <ArrowUpRight size={17} aria-hidden="true" /></a>
+              </div>
+
+              <article className="kazam-case-study" id="kazam" aria-labelledby="kazam-title">
+                <div className="kazam-cover">
+                  <img src="../projects/kazam/kazam-cover.png" alt="Kazam promotional visual with phone and laptop app previews" />
+                </div>
+                <div className="kazam-summary">
+                  <div>
+                    <p className="eyebrow">Media / Case study</p>
+                    <h2 id="kazam-title">Kazam<em>.</em></h2>
+                  </div>
+                  <p>A pair of video pieces that present Kazam&apos;s app experience and its connection between kasambahays and homeowners.</p>
+                  <ul className="kazam-tags" aria-label="Kazam project details">
+                    <li>Promotional media</li>
+                    <li>App showcase</li>
+                    <li>Video production</li>
+                  </ul>
+                </div>
+                <div className="kazam-videos" aria-label="Kazam videos">
+                  <article className="kazam-video-card">
+                    <div className="kazam-video-heading"><p className="eyebrow">Video 01</p><h3>Kazam Ad Video</h3></div>
+                    <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-cover.png">
+                      <source src="../projects/kazam/kazam-ad-video.mp4" type="video/mp4" />
+                      Your browser does not support embedded video.
+                    </video>
+                    <a href="../projects/kazam/kazam-ad-video.mp4" download>Download video <Download size={15} aria-hidden="true" /></a>
+                  </article>
+                  <article className="kazam-video-card">
+                    <div className="kazam-video-heading"><p className="eyebrow">Video 02</p><h3>Kazam Homeowners Video</h3></div>
+                    <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-cover.png">
+                      <source src="../projects/kazam/kazam-homeowners-video.mp4" type="video/mp4" />
+                      Your browser does not support embedded video.
+                    </video>
+                    <a href="../projects/kazam/kazam-homeowners-video.mp4" download>Download video <Download size={15} aria-hidden="true" /></a>
+                  </article>
                 </div>
               </article>
             </>

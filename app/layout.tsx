@@ -14,7 +14,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RJSD — Creative Workspace",
-  description: "RJSD is a creative workspace for web development, game development, animation, 3D modeling, and editing.",
+  description: "RJSD is a creative workspace for web development, game development, animation, 3D modeling, and media.",
+  metadataBase: new URL("https://atlaski7.github.io/Roel-John-Delute-portfolio/"),
+  openGraph: {
+    title: "RJSD - Creative Workspace",
+    description: "Creative work across web, games, animation, 3D modeling, and media. Featuring Kazam.",
+    images: [{ url: "/og.png", width: 1729, height: 910, alt: "RJSD Media - Featured Project: Kazam" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RJSD - Creative Workspace",
+    description: "Creative work across web, games, animation, 3D modeling, and media. Featuring Kazam.",
+    images: ["/og.png"],
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
