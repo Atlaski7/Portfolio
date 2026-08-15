@@ -61,6 +61,7 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
   const [dark, setDark] = useState(true);
   const project = workDetails[category];
   const Icon = project.icon;
+  const isGameDevelopment = category === "game-development";
 
   useEffect(() => {
     const saved = window.localStorage.getItem("rjsd-theme");
@@ -106,12 +107,41 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
             <p className="eyebrow">Capabilities</p>
             <ul>{project.capabilities.map((capability, index) => <li key={capability}><span>0{index + 1}</span>{capability}</li>)}</ul>
           </div>
-          <div className="work-project-archive">
-            <p className="eyebrow">Project archive</p>
-            <h2>Case studies will live here.</h2>
-            <p>This page is ready for finished {project.title.toLowerCase()} projects, process notes, images, and results as the portfolio grows.</p>
-            <a href="../#contact">Discuss a project <ArrowUpRight size={17} aria-hidden="true" /></a>
-          </div>
+          {isGameDevelopment ? (
+            <>
+              <div className="work-project-archive">
+                <p className="eyebrow">Featured project / 01</p>
+                <h2>Syntax Saga.</h2>
+                <p>An educational cybersecurity game that brings lessons, exploration, and assessment together in one playable experience.</p>
+                <a href="#syntax-saga">View project <ArrowUpRight size={17} aria-hidden="true" /></a>
+              </div>
+
+              <article className="syntax-saga-case-study" id="syntax-saga" aria-labelledby="syntax-saga-title">
+                <div className="syntax-saga-cover">
+                  <img src="../projects/syntax-saga/syntax-saga-title-screen.png" alt="Syntax Saga title screen with a student hero and cybersecurity-themed characters" />
+                </div>
+                <div className="syntax-saga-summary">
+                  <div>
+                    <p className="eyebrow">Game development / Case study</p>
+                    <h2 id="syntax-saga-title">Syntax Saga<em>.</em></h2>
+                  </div>
+                  <p>A desktop-based learning game built to make cybersecurity topics feel more hands-on, memorable, and engaging for students.</p>
+                  <ul className="syntax-saga-tags" aria-label="Syntax Saga project details">
+                    <li>GameMaker</li>
+                    <li>Cybersecurity</li>
+                    <li>Educational game</li>
+                  </ul>
+                </div>
+              </article>
+            </>
+          ) : (
+            <div className="work-project-archive">
+              <p className="eyebrow">Project archive</p>
+              <h2>Case studies will live here.</h2>
+              <p>This page is ready for finished {project.title.toLowerCase()} projects, process notes, images, and results as the portfolio grows.</p>
+              <a href="../#contact">Discuss a project <ArrowUpRight size={17} aria-hidden="true" /></a>
+            </div>
+          )}
         </section>
 
         <nav className="work-category-nav" aria-label="Browse work categories">
