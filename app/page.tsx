@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { Box, Clapperboard, Code2, Gamepad2 } from "lucide-react";
+import { Box, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -25,6 +25,11 @@ const projects = [
     title: "3D Modeling",
     description: "Objects, scenes, and polished renders built with attention to form, materials, lighting, and presentation.",
     icon: Box,
+  },
+  {
+    title: "Video Editing",
+    description: "Clean, purposeful edits that shape footage, sound, pacing, and transitions into a polished final story.",
+    icon: Play,
   },
 ];
 
