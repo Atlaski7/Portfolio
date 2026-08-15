@@ -1,39 +1,44 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Box, ChevronLeft, ChevronRight, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
+import { ArrowUpRight, Box, ChevronLeft, ChevronRight, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
 
 export const dynamic = "force-static";
 
 const projects = [
   {
-    title: "Web Development",
+    title: "FrontEnd",
     description: "Responsive, accessible websites and interfaces that are quick to load, easy to use, and ready to grow with your work.",
     icon: Code2,
+    slug: "frontend",
   },
   {
     title: "Game Development",
     description: "Playable prototypes, mechanics, and interactive systems focused on clear feedback, strong controls, and engaging ideas.",
     icon: Gamepad2,
+    slug: "game-development",
   },
   {
     title: "Animation",
     description: "Motion pieces, title sequences, and edited visuals that turn a concept into a clear and memorable story.",
     icon: Clapperboard,
+    slug: "animation",
   },
   {
     title: "3D Modeling",
     description: "Objects, scenes, and polished renders built with attention to form, materials, lighting, and presentation.",
     icon: Box,
+    slug: "3d-modeling",
   },
   {
     title: "Video Editing",
     description: "Clean, purposeful edits that shape footage, sound, pacing, and transitions into a polished final story.",
     icon: Play,
+    slug: "video-editing",
   },
 ];
 
-const focusAreas = ["Web development", "Game development", "Animation", "3D modeling", "Video editing"];
+const focusAreas = ["FrontEnd", "Game development", "Animation", "3D modeling", "Video editing"];
 
 export default function Home() {
   const [dark, setDark] = useState(true);
@@ -133,12 +138,13 @@ export default function Home() {
             </div>
           </div>
           <div className="project-grid" ref={workSliderRef} role="region" aria-label="Selected work slider" tabIndex={0}>
-            {projects.map(({ title, description, icon: Icon }) => (
-              <article className="project-card" key={title}>
+            {projects.map(({ title, description, icon: Icon, slug }) => (
+              <a className="project-card" href={`./work/${slug}/`} key={title} aria-label={`View ${title} work page`}>
                 <span className="project-icon" aria-hidden="true"><Icon size={23} strokeWidth={1.9} /></span>
                 <h3>{title}</h3>
                 <p>{description}</p>
-              </article>
+                <span className="project-card-link">View page <ArrowUpRight size={16} aria-hidden="true" /></span>
+              </a>
             ))}
           </div>
         </section>
