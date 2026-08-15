@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { Box, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { Box, ChevronLeft, ChevronRight, Clapperboard, Code2, Gamepad2, Play } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -37,6 +37,7 @@ const focusAreas = ["Web development", "Game development", "Animation", "3D mode
 
 export default function Home() {
   const [dark, setDark] = useState(true);
+  const workSliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("rjsd-theme");
@@ -62,6 +63,15 @@ export default function Home() {
     window.location.href = `mailto:roel.john20002@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
+  function slideWork(direction: -1 | 1) {
+    const slider = workSliderRef.current;
+    const card = slider?.querySelector<HTMLElement>(".project-card");
+    if (!slider || !card) return;
+
+    const gap = Number.parseFloat(window.getComputedStyle(slider).columnGap) || 24;
+    slider.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
+  }
+
   return (
     <div className={`portfolio-app ${dark ? "theme-dark" : "theme-light"}`} id="top">
       <header className="site-header">
@@ -85,8 +95,14 @@ export default function Home() {
         </section>
 
         <section className="work-section" id="work" aria-labelledby="work-title">
-          <div className="section-heading"><div><p className="eyebrow">What I do</p><h2 id="work-title">Selected <em>work</em></h2></div></div>
-          <div className="project-grid">
+          <div className="section-heading">
+            <div><p className="eyebrow">What I do</p><h2 id="work-title">Selected <em>work</em></h2></div>
+            <div className="slider-controls" aria-label="Selected work controls">
+              <button type="button" onClick={() => slideWork(-1)} aria-label="Show previous work"><ChevronLeft size={20} /></button>
+              <button type="button" onClick={() => slideWork(1)} aria-label="Show next work"><ChevronRight size={20} /></button>
+            </div>
+          </div>
+          <div className="project-grid" ref={workSliderRef} role="region" aria-label="Selected work slider" tabIndex={0}>
             {projects.map(({ title, description, icon: Icon }) => (
               <article className="project-card" key={title}>
                 <span className="project-icon" aria-hidden="true"><Icon size={23} strokeWidth={1.9} /></span>
