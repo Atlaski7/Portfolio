@@ -61,6 +61,7 @@ const hostedKazamVideoBase = "https://atlaski7.github.io/Roel-John-Delute-portfo
 
 export function WorkDetailPage({ category }: { category: WorkCategory }) {
   const [dark, setDark] = useState(true);
+  const [isKazamAdOpen, setIsKazamAdOpen] = useState(false);
   const project = workDetails[category];
   const Icon = project.icon;
   const isGameDevelopment = category === "game-development";
@@ -73,6 +74,22 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
     const frame = window.requestAnimationFrame(() => setDark(saved === "dark"));
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    if (!isKazamAdOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsKazamAdOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isKazamAdOpen]);
 
   function toggleTheme() {
     setDark((current) => {
@@ -163,12 +180,12 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
                   </ul>
                 </div>
                 <div className="kazam-videos" aria-label="Kazam videos">
-                  <article className="kazam-video-card kazam-video-portrait">
+                  <article className="kazam-video-card">
                     <div className="kazam-video-heading"><p className="eyebrow">Video 01</p><h3>Kazam Ad Video</h3></div>
-                    <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-ad-poster.png">
-                      <source src={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} type="video/mp4" />
-                      Your browser does not support embedded video.
-                    </video>
+                    <button className="kazam-video-preview" type="button" onClick={() => setIsKazamAdOpen(true)} aria-label="Play Kazam Ad Video">
+                      <img src="../projects/kazam/kazam-cover.png" alt="Kazam promotional visual with phone and laptop app previews" />
+                      <span className="kazam-preview-play" aria-hidden="true"><Play size={21} fill="currentColor" /></span>
+                    </button>
                     <a href={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} target="_blank" rel="noreferrer">Open video file <Download size={15} aria-hidden="true" /></a>
                   </article>
                   <article className="kazam-video-card">
@@ -198,6 +215,20 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
       </main>
 
       <footer className="site-footer"><span>RJSD / {project.title}</span><span>Selected work / {project.number}</span><a href="../#contact">Get in touch</a></footer>
+      {isMedia && isKazamAdOpen && (
+        <div className="kazam-video-modal" role="dialog" aria-modal="true" aria-labelledby="kazam-ad-player-title" onClick={() => setIsKazamAdOpen(false)}>
+          <div className="kazam-video-modal-panel" onClick={(event) => event.stopPropagation()}>
+            <div className="kazam-video-modal-heading">
+              <div><p className="eyebrow">Now playing</p><h2 id="kazam-ad-player-title">Kazam Ad Video</h2></div>
+              <button className="kazam-video-modal-close" type="button" onClick={() => setIsKazamAdOpen(false)} autoFocus>Close</button>
+            </div>
+            <video controls autoPlay playsInline preload="metadata" poster="../projects/kazam/kazam-ad-poster.png">
+              <source src={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
