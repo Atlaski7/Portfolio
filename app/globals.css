@@ -95,6 +95,8 @@ button { font: inherit; }
 .kazam-video-heading { display:flex; align-items:end; justify-content:space-between; gap:18px; margin:0 0 15px; }
 .kazam-video-heading h3 { margin:0; font-size:18px; letter-spacing:-.04em; }
 .kazam-video-card video { display:block; width:100%; aspect-ratio:16 / 9; border:1px solid var(--border); border-radius:11px; background:#11151d; object-fit:cover; }
+.kazam-video-portrait { display:flex; flex-direction:column; }
+.kazam-video-portrait video { width:min(100%,300px); aspect-ratio:9 / 16; margin:0 auto; }
 .kazam-video-card > a { display:inline-flex; align-items:center; gap:7px; margin-top:14px; color:var(--accent); font-size:12px; font-weight:700; }
 .work-category-nav { display:flex; flex-wrap:wrap; gap:10px; padding-top:52px; }
 .work-category-nav a { padding:10px 14px; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:12px; transition:color .2s,border-color .2s,background .2s; }

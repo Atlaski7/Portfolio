@@ -163,9 +163,9 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
                   </ul>
                 </div>
                 <div className="kazam-videos" aria-label="Kazam videos">
-                  <article className="kazam-video-card">
+                  <article className="kazam-video-card kazam-video-portrait">
                     <div className="kazam-video-heading"><p className="eyebrow">Video 01</p><h3>Kazam Ad Video</h3></div>
-                    <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-cover.png">
+                    <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-ad-poster.png">
                       <source src={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} type="video/mp4" />
                       Your browser does not support embedded video.
                     </video>
