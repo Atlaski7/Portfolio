@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rhea Santos — Designer & Art Director",
-  description: "Independent creative studio of Rhea Santos, making identities, digital experiences, and other useful beautiful things.",
+  title: "RJSD — Creative Workspace",
+  description: "RJSD is a creative workspace for web development, game development, animation, 3D modeling, and editing.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

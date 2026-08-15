@@ -1,20 +1,65 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const projects = [
-  { number: "01", title: "Kindred Health", type: "Brand identity · Digital", year: "2024", tone: "rose", mark: "K" },
-  { number: "02", title: "Northline Journal", type: "Editorial design · Web", year: "2023", tone: "lime", mark: "N" },
-  { number: "03", title: "Morrow Objects", type: "Art direction · E-commerce", year: "2023", tone: "blue", mark: "M" },
+  { number: "01", title: "Portfolio systems", type: "Web development · UI", year: "2024", tone: "blue", mark: "W" },
+  { number: "02", title: "Pixel playground", type: "Game development · Prototype", year: "2024", tone: "violet", mark: "G" },
+  { number: "03", title: "Motion studies", type: "Animation · Editing", year: "2023", tone: "cyan", mark: "A" },
+  { number: "04", title: "Form + space", type: "3D modeling · Render", year: "2023", tone: "slate", mark: "3D" },
 ];
 
+const focusAreas = ["Web development", "Game development", "Animation", "3D modeling", "Video editing"];
+
 export default function Home() {
+  const [dark, setDark] = useState(true);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("rjsd-theme");
+    if (saved === "light" || saved === "dark") setDark(saved === "dark");
+  }, []);
+
+  function toggleTheme() {
+    setDark((current) => {
+      const next = !current;
+      window.localStorage.setItem("rjsd-theme", next ? "dark" : "light");
+      return next;
+    });
+  }
+
   return (
-    <main className="site-shell">
-      <aside className="side-rail"><a className="monogram" href="#top" aria-label="Back to top">R<span>•</span></a><div className="rail-label">Selected work<br />2021—24</div><div className="rail-bottom"><span className="status-dot" /> Available for select projects</div></aside>
-      <div className="content" id="top">
-        <nav className="top-nav" aria-label="Primary navigation"><span className="nav-note">Independent creative studio</span><div className="nav-links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact <span className="arrow">↗</span></a></div></nav>
-        <section className="hero" aria-labelledby="hero-title"><p className="eyebrow">Hello, I&apos;m Rhea — designer &amp; art director</p><h1 id="hero-title">Making<br /><em>good things</em><br />feel inevitable<span className="period">.</span></h1><div className="hero-foot"><p>I build identities, digital experiences, and<br />other useful beautiful things for people<br />with something to say.</p><a className="scroll-cue" href="#work">Scroll to explore <span>↓</span></a></div></section>
-        <section className="work-section" id="work" aria-labelledby="work-title"><div className="section-head"><p className="eyebrow">A few things I&apos;ve made</p><h2 id="work-title">Selected<br /><em>work</em></h2><span className="count">(03)</span></div><div className="project-grid">{projects.map((project) => <article className={`project-card ${project.tone}`} key={project.number}><div className="card-top"><span>{project.number}</span><span>{project.year}</span></div><div className="project-mark">{project.mark}</div><div className="card-bottom"><div><h3>{project.title}</h3><p>{project.type}</p></div><span className="card-arrow">↗</span></div></article>)}</div></section>
-        <section className="about-section" id="about" aria-labelledby="about-title"><div><p className="eyebrow">A little context</p><h2 id="about-title">The short<br /><em>version</em></h2></div><div className="about-copy"><p className="lead">I&apos;m a multidisciplinary designer based in Manila, working across brand, web, and the spaces in between.</p><p>My approach is equal parts curious and practical: find the sharpest idea, give it a clear voice, then make the whole thing feel a little more human.</p><a className="text-link" href="#contact">More about me <span>↗</span></a></div></section>
-        <footer className="footer" id="contact"><div><p className="eyebrow">Have a good one in mind?</p><h2>Let&apos;s make<br /><em>something.</em></h2></div><div className="footer-right"><a className="email" href="mailto:hello@rheasantos.studio">hello@rheasantos.studio <span>↗</span></a><div className="footer-meta"><span>© 2024 Rhea Santos</span><span>Manila, PH</span><span><a href="#top">Back to top ↑</a></span></div></div></footer>
-      </div>
-    </main>
+    <div className={`portfolio-app ${dark ? "theme-dark" : "theme-light"}`} id="top">
+      <header className="site-header">
+        <nav className="header-nav" aria-label="Main navigation">
+          <div className="nav-links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+          <a className="brand" href="#top" aria-label="RJSD home"><span>RJ</span><b>SD</b></a>
+          <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${dark ? "light" : "dark"} mode`}><span>{dark ? "☼" : "◐"}</span><small>{dark ? "Light" : "Dark"}</small></button>
+        </nav>
+      </header>
+
+      <main>
+        <section className="hero-section" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="eyebrow"><span className="live-dot" /> Available for creative projects</p>
+            <h1 id="hero-title">Hi, I&apos;m <span className="accent-text">RJSD</span><span className="hero-dot">.</span></h1>
+            <p className="hero-description">I build thoughtful digital work across web development, game development, animation, 3D modeling, and editing — bringing ideas from first sketch to final frame.</p>
+            <div className="hero-actions"><a className="button button-primary" href="#work">View work <span>-&gt;</span></a><a className="button button-quiet" href="#contact">Get in touch <span>-&gt;</span></a></div>
+            <div className="stats" aria-label="Portfolio stats"><div><strong>03</strong><span>Projects done</span></div><div><strong>05</strong><span>Creative areas</span></div></div>
+          </div>
+          <div className="hero-visual" aria-label="RJSD creative workspace graphic" role="img"><div className="visual-glow" /><div className="visual-grid" /><div className="visual-card visual-card-main"><span className="visual-kicker">Creative workspace</span><strong>RJ<br /><em>SD</em></strong><span className="visual-footer">Ideas in motion / 2024</span></div><div className="visual-card visual-card-side"><span>01</span><i>+</i><span>05</span></div><div className="visual-ring" /></div>
+        </section>
+
+        <section className="work-section" id="work" aria-labelledby="work-title">
+          <div className="section-heading"><div><p className="eyebrow">A growing archive</p><h2 id="work-title">Selected <em>work</em></h2></div><span className="section-index">01 / 02</span></div>
+          <div className="project-grid">{projects.map((project) => <article className={`project-card ${project.tone}`} key={project.number}><div className="card-top"><span>{project.number}</span><span>{project.year}</span></div><div className="project-mark">{project.mark}</div><div className="card-bottom"><div><h3>{project.title}</h3><p>{project.type}</p></div><span className="card-arrow">-&gt;</span></div></article>)}</div>
+        </section>
+
+        <section className="about-section" id="about" aria-labelledby="about-title"><div className="about-intro"><p className="eyebrow">The workspace</p><h2 id="about-title">Built to <em>explore.</em></h2><p className="about-lead">A portfolio for making, learning, and turning rough ideas into work that feels clear, useful, and alive.</p></div><div className="focus-panel"><p className="eyebrow">Current focus</p><ul>{focusAreas.map((area, index) => <li key={area}><span>0{index + 1}</span>{area}<b>-&gt;</b></li>)}</ul></div></section>
+
+        <section className="contact-section" id="contact" aria-labelledby="contact-title"><p className="eyebrow">Have a project in mind?</p><h2 id="contact-title">Let&apos;s make<br /><em>something.</em></h2><a className="contact-link" href="mailto:rjsd.creative@gmail.com">rjsd.creative@gmail.com <span>-&gt;</span></a></section>
+      </main>
+
+      <footer className="site-footer"><span>RJSD / Creative workspace</span><span>Web · Games · Motion · 3D · Edit</span><a href="#top">Back to top ^</a></footer>
+    </div>
   );
 }
