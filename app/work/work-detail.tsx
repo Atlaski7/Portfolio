@@ -82,14 +82,14 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
     <div className={`portfolio-app work-detail-page ${dark ? "theme-dark" : "theme-light"}`} id="top">
       <header className="site-header">
         <nav className="header-nav" aria-label="Work page navigation">
-          <div className="nav-links"><a href="../../#work">Selected work</a><a href="../../#contact">Contact</a></div>
+          <div className="nav-links"><a href="../#work">Selected work</a><a href="../#contact">Contact</a></div>
           <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${dark ? "light" : "dark"} mode`}><span>{dark ? "☼" : "◐"}</span><small>{dark ? "Light" : "Dark"}</small></button>
-          <a className="brand" href="../../" aria-label="RJSD home"><span>RJ</span><b>SD</b></a>
+          <a className="brand" href="../" aria-label="RJSD home"><span>RJ</span><b>SD</b></a>
         </nav>
       </header>
 
       <main className="work-detail-main">
-        <a className="work-detail-back" href="../../#work"><ArrowLeft size={17} aria-hidden="true" /> Back to selected work</a>
+        <a className="work-detail-back" href="../#work"><ArrowLeft size={17} aria-hidden="true" /> Back to selected work</a>
 
         <section className="work-detail-hero" aria-labelledby="work-detail-title">
           <div className="work-detail-copy">
@@ -110,16 +110,16 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
             <p className="eyebrow">Project archive</p>
             <h2>Case studies will live here.</h2>
             <p>This page is ready for finished {project.title.toLowerCase()} projects, process notes, images, and results as the portfolio grows.</p>
-            <a href="../../#contact">Discuss a project <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a href="../#contact">Discuss a project <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </section>
 
         <nav className="work-category-nav" aria-label="Browse work categories">
-          {categories.map((item) => <a href={`../${item.slug}/`} aria-current={item.slug === category ? "page" : undefined} key={item.slug}>{item.title}</a>)}
+          {categories.map((item) => <a href={`./${item.slug}`} aria-current={item.slug === category ? "page" : undefined} key={item.slug}>{item.title}</a>)}
         </nav>
       </main>
 
-      <footer className="site-footer"><span>RJSD / {project.title}</span><span>Selected work / {project.number}</span><a href="../../#contact">Get in touch</a></footer>
+      <footer className="site-footer"><span>RJSD / {project.title}</span><span>Selected work / {project.number}</span><a href="../#contact">Get in touch</a></footer>
     </div>
   );
 }

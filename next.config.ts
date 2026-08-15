@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   ...(process.env.GITHUB_PAGES
     ? {
         output: "export" as const,
-        trailingSlash: true,
       }
     : {}),
 };

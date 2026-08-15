@@ -139,7 +139,7 @@ export default function Home() {
           </div>
           <div className="project-grid" ref={workSliderRef} role="region" aria-label="Selected work slider" tabIndex={0}>
             {projects.map(({ title, description, icon: Icon, slug }) => (
-              <a className="project-card" href={`./work/${slug}/`} key={title} aria-label={`View ${title} work page`}>
+              <a className="project-card" href={`./work/${slug}`} key={title} aria-label={`View ${title} work page`}>
                 <span className="project-icon" aria-hidden="true"><Icon size={23} strokeWidth={1.9} /></span>
                 <h3>{title}</h3>
                 <p>{description}</p>
