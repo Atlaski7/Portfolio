@@ -57,6 +57,8 @@ const categories = (Object.keys(workDetails) as WorkCategory[]).map((slug) => ({
   title: workDetails[slug].title,
 }));
 
+const hostedKazamVideoBase = "https://atlaski7.github.io/Roel-John-Delute-portfolio/projects/kazam";
+
 export function WorkDetailPage({ category }: { category: WorkCategory }) {
   const [dark, setDark] = useState(true);
   const project = workDetails[category];
@@ -164,18 +166,18 @@ export function WorkDetailPage({ category }: { category: WorkCategory }) {
                   <article className="kazam-video-card">
                     <div className="kazam-video-heading"><p className="eyebrow">Video 01</p><h3>Kazam Ad Video</h3></div>
                     <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-cover.png">
-                      <source src="../projects/kazam/kazam-ad-video.mp4" type="video/mp4" />
+                      <source src={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} type="video/mp4" />
                       Your browser does not support embedded video.
                     </video>
-                    <a href="../projects/kazam/kazam-ad-video.mp4" download>Download video <Download size={15} aria-hidden="true" /></a>
+                    <a href={`${hostedKazamVideoBase}/kazam-ad-video.mp4`} target="_blank" rel="noreferrer">Open video file <Download size={15} aria-hidden="true" /></a>
                   </article>
                   <article className="kazam-video-card">
                     <div className="kazam-video-heading"><p className="eyebrow">Video 02</p><h3>Kazam Homeowners Video</h3></div>
                     <video controls preload="metadata" playsInline poster="../projects/kazam/kazam-cover.png">
-                      <source src="../projects/kazam/kazam-homeowners-video.mp4" type="video/mp4" />
+                      <source src={`${hostedKazamVideoBase}/kazam-homeowners-video.mp4`} type="video/mp4" />
                       Your browser does not support embedded video.
                     </video>
-                    <a href="../projects/kazam/kazam-homeowners-video.mp4" download>Download video <Download size={15} aria-hidden="true" /></a>
+                    <a href={`${hostedKazamVideoBase}/kazam-homeowners-video.mp4`} target="_blank" rel="noreferrer">Open video file <Download size={15} aria-hidden="true" /></a>
                   </article>
                 </div>
               </article>
