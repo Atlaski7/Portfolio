@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const projects = [
   { number: "01", title: "Portfolio systems", type: "Web development · UI", year: "2024", tone: "blue", mark: "W" },
@@ -25,6 +25,14 @@ export default function Home() {
       window.localStorage.setItem("rjsd-theme", next ? "dark" : "light");
       return next;
     });
+  }
+
+  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const subject = String(data.get("subject") || "Portfolio project inquiry");
+    const message = String(data.get("message") || "");
+    window.location.href = `mailto:roel.john20002@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
   return (
@@ -56,7 +64,7 @@ export default function Home() {
 
         <section className="about-section" id="about" aria-labelledby="about-title"><div className="about-intro"><p className="eyebrow">The workspace</p><h2 id="about-title">Built to <em>explore.</em></h2><p className="about-lead">A portfolio for making, learning, and turning rough ideas into work that feels clear, useful, and alive.</p></div><div className="focus-panel"><p className="eyebrow">Current focus</p><ul>{focusAreas.map((area, index) => <li key={area}><span>0{index + 1}</span>{area}<b>-&gt;</b></li>)}</ul></div></section>
 
-        <section className="contact-section" id="contact" aria-labelledby="contact-title"><p className="eyebrow">Have a project in mind?</p><h2 id="contact-title">Let&apos;s make<br /><em>something.</em></h2><a className="contact-link" href="mailto:rjsd.creative@gmail.com">rjsd.creative@gmail.com <span>-&gt;</span></a></section>
+        <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="contact-card"><div className="contact-copy"><p className="eyebrow">Get in touch</p><h2 id="contact-title">Let&apos;s work<br /><em>together.</em></h2><p className="contact-intro">I&apos;m open to web, game, animation, 3D, and editing projects — short or long-term. Have something in mind? Let&apos;s talk.</p><div className="contact-details"><a href="mailto:roel.john20002@gmail.com"><span className="contact-icon">@</span>roel.john20002@gmail.com</a><a href="https://www.linkedin.com/in/roel-john-delute-54b904382" target="_blank" rel="noreferrer"><span className="contact-icon">in</span>linkedin.com/in/roel-john-delute-54b904382</a><a href="https://github.com/Atlaski7/Portfolio" target="_blank" rel="noreferrer"><span className="contact-icon">&lt;&gt;</span>github.com/Atlaski7/Portfolio</a></div></div><form className="contact-form" onSubmit={handleContactSubmit}><div className="form-row"><label>Name *<input name="name" required placeholder="Your name" /></label><label>Email *<input name="email" type="email" required placeholder="you@example.com" /></label></div><label>Subject<input name="subject" placeholder="Project inquiry" /></label><label>Message *<textarea name="message" required placeholder="Tell me about your project..." rows={5} /></label><button className="form-submit" type="submit">Send message <span>-&gt;</span></button></form></div></section>
       </main>
 
       <footer className="site-footer"><span>RJSD / Creative workspace</span><span>Web · Games · Motion · 3D · Edit</span><a href="#top">Back to top ^</a></footer>
