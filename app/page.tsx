@@ -32,8 +32,8 @@ export default function Home() {
       <header className="site-header">
         <nav className="header-nav" aria-label="Main navigation">
           <div className="nav-links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
-          <a className="brand" href="#top" aria-label="RJSD home"><span>RJ</span><b>SD</b></a>
           <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${dark ? "light" : "dark"} mode`}><span>{dark ? "☼" : "◐"}</span><small>{dark ? "Light" : "Dark"}</small></button>
+          <a className="brand" href="#top" aria-label="RJSD home"><span>RJ</span><b>SD</b></a>
         </nav>
       </header>
 
