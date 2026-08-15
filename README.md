@@ -16,3 +16,7 @@ npm run dev
 
 The portfolio is built with React, Vinext, and Tailwind CSS. Keep bot-only
 code, dependencies, and environment variables inside `discord-bot/`.
+
+The public portfolio is published with GitHub Pages at:
+
+`https://atlaski7.github.io/Roel-John-Delute-portfolio/`
