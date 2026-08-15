@@ -1,14 +1,31 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { Box, Clapperboard, Code2, Gamepad2 } from "lucide-react";
 
 export const dynamic = "force-static";
 
 const projects = [
-  { number: "01", title: "Web development", type: "Modern websites and interfaces", year: "2024", tone: "blue", mark: "W", iconText: "</>", description: "Responsive, accessible websites and interfaces that are quick to load, easy to use, and made to grow with your work.", featured: true },
-  { number: "02", title: "Pixel playground", type: "Game development · Prototype", year: "2024", tone: "violet", mark: "G" },
-  { number: "03", title: "Motion studies", type: "Animation · Editing", year: "2023", tone: "cyan", mark: "A" },
-  { number: "04", title: "Form + space", type: "3D modeling · Render", year: "2023", tone: "slate", mark: "3D" },
+  {
+    title: "Web Development",
+    description: "Responsive, accessible websites and interfaces that are quick to load, easy to use, and ready to grow with your work.",
+    icon: Code2,
+  },
+  {
+    title: "Game Development",
+    description: "Playable prototypes, mechanics, and interactive systems focused on clear feedback, strong controls, and engaging ideas.",
+    icon: Gamepad2,
+  },
+  {
+    title: "Animation",
+    description: "Motion pieces, title sequences, and edited visuals that turn a concept into a clear and memorable story.",
+    icon: Clapperboard,
+  },
+  {
+    title: "3D Modeling",
+    description: "Objects, scenes, and polished renders built with attention to form, materials, lighting, and presentation.",
+    icon: Box,
+  },
 ];
 
 const focusAreas = ["Web development", "Game development", "Animation", "3D modeling", "Video editing"];
@@ -18,7 +35,10 @@ export default function Home() {
 
   useEffect(() => {
     const saved = window.localStorage.getItem("rjsd-theme");
-    if (saved === "light" || saved === "dark") setDark(saved === "dark");
+    if (saved !== "light" && saved !== "dark") return;
+
+    const frame = window.requestAnimationFrame(() => setDark(saved === "dark"));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   function toggleTheme() {
@@ -60,8 +80,16 @@ export default function Home() {
         </section>
 
         <section className="work-section" id="work" aria-labelledby="work-title">
-          <div className="section-heading"><div><p className="eyebrow">A growing archive</p><h2 id="work-title">Selected <em>work</em></h2></div><span className="section-index">01 / 02</span></div>
-          <div className="project-grid">{projects.map((project) => <article className={`project-card ${project.tone} ${project.featured ? "project-card-featured" : ""}`} key={project.number}><div className="card-top"><span>{project.number}</span><span>{project.year}</span></div><div className="project-card-body">{project.iconText ? <span className="project-icon" aria-hidden="true">{project.iconText}</span> : <div className="project-mark">{project.mark}</div>}</div><div className="card-bottom"><div><h3>{project.title}</h3><p>{project.type}</p>{project.description ? <p className="card-description">{project.description}</p> : null}</div><span className="card-arrow">-&gt;</span></div></article>)}</div>
+          <div className="section-heading"><div><p className="eyebrow">What I do</p><h2 id="work-title">Selected <em>work</em></h2></div></div>
+          <div className="project-grid">
+            {projects.map(({ title, description, icon: Icon }) => (
+              <article className="project-card" key={title}>
+                <span className="project-icon" aria-hidden="true"><Icon size={23} strokeWidth={1.9} /></span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="about-section" id="about" aria-labelledby="about-title"><div className="about-intro"><p className="eyebrow">The workspace</p><h2 id="about-title">Built to <em>explore.</em></h2><p className="about-lead">A portfolio for making, learning, and turning rough ideas into work that feels clear, useful, and alive.</p></div><div className="focus-panel"><p className="eyebrow">Current focus</p><ul>{focusAreas.map((area, index) => <li key={area}><span>0{index + 1}</span>{area}<b>-&gt;</b></li>)}</ul></div></section>
