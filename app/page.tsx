@@ -44,7 +44,7 @@ export default function Home() {
             <h1 id="hero-title">Hi, I&apos;m <span className="accent-text">RJSD</span><span className="hero-dot">.</span></h1>
             <p className="hero-description">I build thoughtful digital work across web development, game development, animation, 3D modeling, and editing — bringing ideas from first sketch to final frame.</p>
             <div className="hero-actions"><a className="button button-primary" href="#work">View work <span>-&gt;</span></a><a className="button button-quiet" href="#contact">Get in touch <span>-&gt;</span></a></div>
-            <div className="stats" aria-label="Portfolio stats"><div><strong>03</strong><span>Projects done</span></div><div><strong>05</strong><span>Creative areas</span></div></div>
+            <div className="stats" aria-label="Portfolio stats"><div><strong>04</strong><span>Projects done</span></div><div><strong>05</strong><span>Creative areas</span></div></div>
           </div>
           <div className="hero-visual" aria-label="RJSD creative workspace graphic" role="img"><div className="visual-glow" /><div className="visual-grid" /><div className="visual-card visual-card-main"><span className="visual-kicker">Creative workspace</span><strong>RJ<br /><em>SD</em></strong><span className="visual-footer">Ideas in motion / 2024</span></div><div className="visual-card visual-card-side"><span>01</span><i>+</i><span>05</span></div><div className="visual-ring" /></div>
         </section>
